@@ -1,4 +1,4 @@
-# esp8266_ir_proyx_oled_weather
+# esp8266_ir_proxy_oled_weather
 
 Listen to an IR signal from a remote, and convert it to another IR signal.
 
