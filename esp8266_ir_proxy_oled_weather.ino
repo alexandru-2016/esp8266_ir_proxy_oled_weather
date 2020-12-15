@@ -289,17 +289,17 @@ void drawCurrentWeather() {
   int16_t x1, y1;
   uint16_t w, h;
   display.getTextBounds(currentWeather.iconMeteoCon, x, y, &x1, &y1, &w, &h);
-  x = x + w + 5;
+  x = x + w + 4;
 
   String temp = String(currentWeather.temp, 0);
   display.setTextSize(2);
-  display.setFont(&Open_Sans_Condensed_Light_32);
+  display.setFont(&Open_Sans_Condensed_Light_Italic_32);
   display.setCursor(x, y);
   
   display.print(temp);
 
   display.getTextBounds(temp, x, y, &x1, &y1, &w, &h);
-  x = x + w;
+  x = x + w + 6;
 
   display.drawCircle(x, 10, 3, SSD1306_WHITE);
   
