@@ -29,4 +29,5 @@ at the end is what you assign to the constant below.
 String OPEN_WEATHER_MAP_LOCATION_ID = "";
 ```
 
+![](volume.gif)
 ![](weather.gif)
