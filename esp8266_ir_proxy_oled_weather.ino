@@ -46,14 +46,11 @@ See more at https://thingpulse.com
 #include <IRsend.h>
 #include <IRutils.h>
 
+#include "secrets.h"
+
 /***************************
  * Begin Settings
  **************************/
-
-// WIFI
-const char* WIFI_SSID = "";
-const char* WIFI_PWD = "";
-
 #define TZ              2       // (utc+) TZ in hours
 #define DST_MN          60      // use 60mn for summer time in some countries
 
@@ -78,18 +75,6 @@ IRsend irsend(kIrLed);  // Set the GPIO to be used to sending the message.
 
 // Simulate speaker volume display
 int currentVolume = 28;
-
-// OpenWeatherMap Settings
-// Sign up here to get an API key:
-// https://docs.thingpulse.com/how-tos/openweathermap-key/
-String OPEN_WEATHER_MAP_APP_ID = "";
-/*
-Go to https://openweathermap.org/find?q= and search for a location. Go through the
-result set and select the entry closest to the actual location you want to display 
-data for. It'll be a URL like https://openweathermap.org/city/2657896. The number
-at the end is what you assign to the constant below.
- */
-String OPEN_WEATHER_MAP_LOCATION_ID = "";
 
 // Pick a language code from this list:
 // Arabic - ar, Bulgarian - bg, Catalan - ca, Czech - cz, German - de, Greek - el,
