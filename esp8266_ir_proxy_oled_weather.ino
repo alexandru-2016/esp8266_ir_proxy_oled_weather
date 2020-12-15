@@ -103,8 +103,6 @@ time_t now;
 // flag changed in the ticker function every 10 minutes
 bool readyForWeatherUpdate = false;
 
-String lastUpdate = "--";
-
 long timeSinceLastWUpdate = 0;
 
 //declaring prototypes
@@ -141,6 +139,10 @@ void setup() {
     delay(500);
     Serial.print(".");
     counter++;
+
+    if (counter == 60) {
+      ESP.restart();
+    }
   }
   // Get time from network time service
   configTime(TZ_SEC, DST_SEC, "pool.ntp.org");
@@ -174,6 +176,7 @@ void loop() {
 
   if (readyForWeatherUpdate && screenSaverActive) {
     updateData();
+    drawCurrentWeather();
   }
 
   if (!screenSaverActive && time - timeSinceLastIrReceive > (1000L*SCREEN_SAVER_INTERVAL_SECS)) {
@@ -260,6 +263,10 @@ void show_number(int value) {
 }
 
 void updateData() {
+  if (WiFi.status() != WL_CONNECTED) {
+    ESP.restart();
+  }
+  
   currentWeatherClient.setMetric(IS_METRIC);
   currentWeatherClient.setLanguage(OPEN_WEATHER_MAP_LANGUAGE);
   currentWeatherClient.updateCurrentById(&currentWeather, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATION_ID);
@@ -271,10 +278,11 @@ void updateData() {
 void drawCurrentWeather() {  
   int x = 0;
   int y = 54;
+  display.stopscroll();
   display.clearDisplay();
   
   display.setTextSize(2);
-  display.setFont(&Meteocons_Regular_18);  
+  display.setFont(&Meteocons_Regular_20);  
   display.setCursor(x, y);
   display.print(currentWeather.iconMeteoCon);
   
@@ -291,7 +299,7 @@ void drawCurrentWeather() {
   display.print(temp);
 
   display.getTextBounds(temp, x, y, &x1, &y1, &w, &h);
-  x = x + w + 5;
+  x = x + w;
 
   display.drawCircle(x, 10, 3, SSD1306_WHITE);
   
